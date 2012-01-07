@@ -1,0 +1,5 @@
+escape ^t^t
+defencoding UTF-8
+hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+
+

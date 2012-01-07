@@ -1,0 +1,25 @@
+"------------------------------------------------
+":colorscheme ChocolateLiquor
+":colorscheme desert
+:colorscheme fork_molokai
+set printoptions=number:y
+if has('win32')
+	set guifont=VL_ゴシック:h12:cSHIFTJIS
+endif
+
+"------------------------------------------------
+hi Pmenu      guibg=grey40
+hi PmenuSel   guibg=olivedrab
+hi PmenuSbar  guibg=Grey
+
+"------------------------------------------------
+set listchars=tab:__,trail:@,eol:$
+set list
+"highlight SpecialKey guifg=#774444
+"highlight NonText guibg=#333333 guifg=#774444
+highlight JpSpace cterm=underline ctermfg=Blue guibg=#774444
+"au BufRead,BufNew * match JpSpace /　/
+match JpSpace /　/
+"------------------------------------------------
+hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=white  cterm=reverse
+
