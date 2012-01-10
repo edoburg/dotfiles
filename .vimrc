@@ -80,7 +80,9 @@ endfor
 " ファイルを読込む時にトライする文字エンコードの順序を確定する。漢字コード自
 " 動判別機能を利用する場合には別途iconv.dllが必要。iconv.dllについては
 " README_w32j.txtを参照。ユーティリティスクリプトを読み込むことで設定される。
-source $VIM/plugins/kaoriya/encode_japan.vim
+if has('win32')
+  source $VIM/plugins/kaoriya/encode_japan.vim
+endif
 " メッセージを日本語にする (Windowsでは自動的に判断・設定されている)
 if !(has('win32') || has('mac')) && has('multi_lang')
   if !exists('$LANG') || $LANG.'X' ==# 'X'
@@ -241,11 +243,15 @@ endif
 set formatexpr=autofmt#japanese#formatexpr()
 
 " vimdoc-ja: 日本語ヘルプを無効化する.
-if kaoriya#switch#enabled('disable-vimdoc-ja')
-  let &rtp = join(filter(split(&rtp, ','), 'v:val !~ "vimdoc-ja"'), ',')
+if has('win32')
+  if kaoriya#switch#enabled('disable-vimdoc-ja')
+    let &rtp = join(filter(split(&rtp, ','), 'v:val !~ "vimdoc-ja"'), ',')
+  endif
 endif
 
 if !has('win32') && filereadable($HOME . '/_vimrc')
   source ~/_vimrc
 endif
+
 " Copyright (C) 2011 KaoriYa/MURAOKA Taro
+
