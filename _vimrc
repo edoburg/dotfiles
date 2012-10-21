@@ -1,3 +1,44 @@
+"-----------------------------------------------------------
+" neobundle.vim
+"
+set nocompatible
+filetype plugin indent off
+
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+
+call neobundle#rc(expand('~/.vim/bundle'))
+
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/quickrun.vim'
+NeoBundle 'thinca/vim-poslist'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+    \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+endif
+filetype plugin indent on
+
+
 "###########################################################
 " 非Plugin
 "###########################################################
@@ -226,6 +267,17 @@ endif
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
 let howm_fileencoding    = 'utf-8'
 let howm_fileformat      = 'unix'
+let QFixHowm_FileType    = 'markdown'
+let QFixHowm_Title       = '#'
+
+
+"-----------------------------------------------------------
+" for unite-colorscheme unite-font
+let g:unite_enable_start_insert = 1
+let g:unite_enable_split_vertically = 1
+if globpath(&rtp, 'plugin/unite.vim') != ''
+  nnoremap sc :<C-u>Unite colorscheme font<Cr>
+endif
 
 "###########################################################
 " ローカル環境依存

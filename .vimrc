@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 05-Jan-2012.
+" Last Change: 21-Oct-2012.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -29,22 +29,6 @@
 "   :echo $HOME
 "   :echo $VIM
 "   :version
-"---------------------------------------------------------------------------
-" Vundle
-"
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc('~/.vim/bundle')
-Bundle 'neocomplcache'
-Bundle 'msanders/snipmate.vim'
-Bundle 'surround.vim'
-Bundle 'unite.vim'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'quickrun.vim'
-Bundle 'Shougo/vimfiler'
-Bundle 'ZenCoding.vim'
-Bundle 'fuenor/qfixhowm'
-Bundle 'scrooloose/nerdtree'
-
 "---------------------------------------------------------------------------
 " サイトローカルな設定($VIM/vimrc_local.vim)があれば読み込む。読み込んだ後に
 " 変数g:vimrc_local_finishに非0な値が設定されていた場合には、それ以上の設定
@@ -246,6 +230,6 @@ if kaoriya#switch#enabled('disable-vimdoc-ja')
 endif
 
 if !has('win32') && filereadable($HOME . '/_vimrc')
-  source ~/_vimrc
+  source $HOME/_vimrc
 endif
 " Copyright (C) 2011 KaoriYa/MURAOKA Taro
