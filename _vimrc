@@ -14,6 +14,7 @@ NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'ZenCoding.vim'
 NeoBundle 'scrooloose/nerdtree'
@@ -28,6 +29,7 @@ NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
+NeoBundle 'klen/python-mode'
 
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 
@@ -278,6 +280,11 @@ let g:unite_enable_split_vertically = 1
 if globpath(&rtp, 'plugin/unite.vim') != ''
   nnoremap sc :<C-u>Unite colorscheme font<Cr>
 endif
+
+"-----------------------------------------------------------
+" for python-mode
+
+
 
 "###########################################################
 " ローカル環境依存
