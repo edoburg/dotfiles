@@ -285,3 +285,6 @@ endif
 if 1 && filereadable($VIM . '/vimrc_local')
   source $VIM/vimrc_local
 endif
+if 1 && filereadable($HOME. '/vimrc_local')
+  source $HOME/vimrc_local
+endif

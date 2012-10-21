@@ -2,6 +2,7 @@
 ":colorscheme ChocolateLiquor
 ":colorscheme desert
 :colorscheme fork_molokai
+"------------------------------------------------
 set printoptions=number:y
 if has('win32')
 	set guifont=VL_ゴシック:h12:cSHIFTJIS
@@ -55,3 +56,13 @@ function! s:GetHighlight(hi)
   let hl = substitute(hl, 'xxx', '', '')
   return hl
 endfunction
+
+"###########################################################
+" ローカル環境依存
+"###########################################################
+if 1 && filereadable($VIM . '/gvimrc_local')
+  source $VIM/gvimrc_local
+endif
+if 1 && filereadable($HOME. '/gvimrc_local')
+  source $HOME/gvimrc_local
+endif
