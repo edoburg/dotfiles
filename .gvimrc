@@ -70,8 +70,6 @@ colorscheme morning
 if has('win32')
   " Windows用
   set guifont=VL_ゴシック:h12:cSHIFTJIS
-  "set guifont=MS_Gothic:h12:cSHIFTJIS
-  "set guifont=MS_Mincho:h12:cSHIFTJIS
   " 行間隔の設定
   set linespace=1
   " 一部のUCS文字の幅を自動計測して決める
@@ -79,8 +77,10 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-  "set guifont=Osaka−等幅:h14
   set guifont=Osaka-Mono:h16
+elseif has('gui_gtk2')
+  set guifont=Liberation\ Mono\ 11
+  set linespace=0
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14

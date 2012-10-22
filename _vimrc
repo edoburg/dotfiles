@@ -1,3 +1,5 @@
+" vim:set ts=8 sts=2 sw=2 tw=0:
+"
 "-----------------------------------------------------------
 " neobundle.vim
 "
@@ -10,28 +12,34 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle'))
 
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'ZenCoding.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/quickrun.vim'
-NeoBundle 'thinca/vim-poslist'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
-NeoBundle 't9md/vim-quickhl'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
-NeoBundle 'klen/python-mode'
+NeoBundle 'https://github.com/Shougo/vimproc'
+NeoBundle 'https://github.com/Shougo/neobundle.vim'
+NeoBundle 'https://github.com/Shougo/unite.vim'
+NeoBundle 'https://github.com/Shougo/vimfiler'
+NeoBundle 'https://github.com/Shougo/vimshell'
+NeoBundle 'https://github.com/h1mesuke/unite-outline'
+NeoBundle 'https://github.com/ZenCoding.vim'
+NeoBundle 'https://github.com/scrooloose/nerdtree'
+NeoBundle 'https://github.com/kien/ctrlp.vim'
+NeoBundle 'https://github.com/fuenor/qfixhowm'
+NeoBundle 'https://github.com/tpope/vim-fugitive'
+NeoBundle 'https://github.com/thinca/vim-ref'
+NeoBundle 'https://github.com/thinca/quickrun.vim'
+NeoBundle 'https://github.com/thinca/vim-poslist'
+NeoBundle 'https://github.com/Shougo/neocomplcache'
+NeoBundle 'https://github.com/Shougo/neosnippet'
+NeoBundle 'https://github.com/t9md/vim-quickhl'
+NeoBundle 'https://github.com/ujihisa/unite-colorscheme'
+NeoBundle 'https://github.com/ujihisa/unite-font'
+NeoBundle 'https://github.com/klen/python-mode'
+NeoBundle 'https://github.com/mikewest/vim-markdown'
+NeoBundle 'https://github.com/msanders/snipmate.vim'
+NeoBundle 'https://github.com/vim-scripts/surround.vim'
+NeoBundle 'https://github.com/vim-scripts/eregex.vim'
 
-NeoBundle 'chriskempson/vim-tomorrow-theme'
+" Color Scheme
+NeoBundle 'https://github.com/chriskempson/vim-tomorrow-theme'
+NeoBundle 'https://github.com/altercation/vim-colors-solarized'
 
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
@@ -187,21 +195,25 @@ autocmd SessionLoadPost so $VIM/gvimrc
 "###########################################################
 "-----------------------------------------------------------
 " for neocomplcache.vim
-let g:neocomplcache_enable_at_startup = 1
-function! InsertTabWrapper()
-    if pumvisible()
-        return "\<c-n>"
-    endif
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
-        return "\<tab>"
-    elseif exists('&omnifunc') && &omnifunc == ''
-        return "\<c-n>"
-    else
-        return "\<c-x>\<c-o>"
-    endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+if filereadable($HOME . '/.vim/vimrc_neocomplcache.vim')
+	source $HOME/.vim/vimrc_neocomplcache.vim
+endif
+
+"let g:neocomplcache_enable_at_startup = 1
+"function! InsertTabWrapper()
+"    if pumvisible()
+"        return "\<c-n>"
+"    endif
+"    let col = col('.') - 1
+"    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
+"        return "\<tab>"
+"    elseif exists('&omnifunc') && &omnifunc == ''
+"        return "\<c-n>"
+"    else
+"        return "\<c-x>\<c-o>"
+"    endif
+"endfunction
+"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 "-----------------------------------------------------------
 " for unite.vim
@@ -237,6 +249,7 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('t
 if has("cscope")
 	set cscopetag
 	set csto=0
+	set cscopequickfix=s-,c-,d-,i-,t-,e-
 	if filereadable("cscope.out")
 		cs add cscope.out
 	endif
@@ -261,6 +274,7 @@ endif
 "-----------------------------------------------------------
 " for QFixHowm
 let GFixHowm_Key = 'g'
+	let howm_dir = $HOME.'/.howm'
 if has('win32')
 	let howm_dir = $USERPROFILE.'/My Documents/My Dropbox/howm'
 elseif has('mac')
