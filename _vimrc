@@ -9,37 +9,37 @@ filetype plugin indent off
 if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-
+let g:neobundle_default_git_protocol="https"
 call neobundle#rc(expand('~/.vim/bundle'))
 
-NeoBundle 'https://github.com/Shougo/vimproc'
-NeoBundle 'https://github.com/Shougo/neobundle.vim'
-NeoBundle 'https://github.com/Shougo/unite.vim'
-NeoBundle 'https://github.com/Shougo/vimfiler'
-NeoBundle 'https://github.com/Shougo/vimshell'
-NeoBundle 'https://github.com/h1mesuke/unite-outline'
-NeoBundle 'https://github.com/ZenCoding.vim'
-NeoBundle 'https://github.com/scrooloose/nerdtree'
-NeoBundle 'https://github.com/kien/ctrlp.vim'
-NeoBundle 'https://github.com/fuenor/qfixhowm'
-NeoBundle 'https://github.com/tpope/vim-fugitive'
-NeoBundle 'https://github.com/thinca/vim-ref'
-NeoBundle 'https://github.com/thinca/quickrun.vim'
-NeoBundle 'https://github.com/thinca/vim-poslist'
-NeoBundle 'https://github.com/Shougo/neocomplcache'
-NeoBundle 'https://github.com/Shougo/neosnippet'
-NeoBundle 'https://github.com/t9md/vim-quickhl'
-NeoBundle 'https://github.com/ujihisa/unite-colorscheme'
-NeoBundle 'https://github.com/ujihisa/unite-font'
-NeoBundle 'https://github.com/klen/python-mode'
-NeoBundle 'https://github.com/mikewest/vim-markdown'
-NeoBundle 'https://github.com/msanders/snipmate.vim'
-NeoBundle 'https://github.com/vim-scripts/surround.vim'
-NeoBundle 'https://github.com/vim-scripts/eregex.vim'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/quickrun.vim'
+NeoBundle 'thinca/vim-poslist'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'klen/python-mode'
+NeoBundle 'mikewest/vim-markdown'
+NeoBundle 'msanders/snipmate.vim'
+NeoBundle 'vim-scripts/surround.vim'
+NeoBundle 'vim-scripts/eregex.vim'
 
 " Color Scheme
-NeoBundle 'https://github.com/chriskempson/vim-tomorrow-theme'
-NeoBundle 'https://github.com/altercation/vim-colors-solarized'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'altercation/vim-colors-solarized'
 
 if neobundle#exists_not_installed_bundles()
   echomsg 'Not installed bundles : ' .
@@ -297,7 +297,7 @@ endif
 
 "-----------------------------------------------------------
 " for python-mode
-
+let g:pymode_run = 0 " quickrunで実行するから不要
 
 
 "###########################################################
