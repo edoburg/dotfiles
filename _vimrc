@@ -36,6 +36,7 @@ NeoBundle 'mikewest/vim-markdown'
 NeoBundle 'msanders/snipmate.vim'
 NeoBundle 'vim-scripts/surround.vim'
 NeoBundle 'vim-scripts/eregex.vim'
+NeoBundle 'tyru/open-browser.vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -299,6 +300,18 @@ endif
 " for python-mode
 let g:pymode_run = 0 " quickrunで実行するから不要
 
+"-----------------------------------------------------------
+" for quickrun
+let g:quickrun_config = {}
+" markdown html変換後にbrowserで出力
+let g:quickrun_config['markdown'] = {
+      \ 'outputter':'browser'
+      \ }
+"-----------------------------------------------------------
+" for open-browser.vim
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
 
 "###########################################################
 " ローカル環境依存
