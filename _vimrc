@@ -7,9 +7,9 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-let g:neobundle_default_git_protocol="https"
+"let g:neobundle_default_git_protocol="https"
 call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundle 'Shougo/vimproc'
@@ -37,6 +37,8 @@ NeoBundle 'msanders/snipmate.vim'
 NeoBundle 'vim-scripts/surround.vim'
 NeoBundle 'vim-scripts/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundle 'osyo-manga/shabadou.vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -62,7 +64,7 @@ set smartcase
 
 " windowsならgrepコマンドに外部grepを使用する
 if has('win32')
-	set grepprg=grep.exe\ -inrHE
+  set grepprg=grep.exe\ -inrHE
 endif
 "-----------------------------------------------------------
 " 編集に関する設定:
@@ -147,19 +149,19 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 set backup
 set swapfile
 if has('win32')
-	if isdirectory($VIM.'/backup/vim_backup')
-		set backupdir=>$VIM/backup/vim_backup
-	endif
-	if isdirectory($VIM.'/backup/vim_swap')
-		set directory=>$VIM/backup/vim_swap
-	endif
+  if isdirectory($VIM.'/backup/vim_backup')
+    set backupdir=>$VIM/backup/vim_backup
+  endif
+  if isdirectory($VIM.'/backup/vim_swap')
+    set directory=>$VIM/backup/vim_swap
+  endif
 else
-	if isdirectory($HOME.'/backup/vim_backup')
-		set backupdir=>$HOME/backup/vim_backup
-	endif
-	if isdirectory($HOME.'/backup/vim_swap')
-		set directory=>$HOME/backup/vim_swap
-	endif
+  if isdirectory($HOME.'/backup/vim_backup')
+    set backupdir=>$HOME/backup/vim_backup
+  endif
+  if isdirectory($HOME.'/backup/vim_swap')
+    set directory=>$HOME/backup/vim_swap
+  endif
 endif
 
 "----------------------------------------------------------
@@ -181,6 +183,7 @@ autocmd FileType cpp set omnifunc=ccomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set fenc=utf-8
 autocmd FileType python set fdm=syntax
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=0
 autocmd FileType ruby,eruby :map <F2> :w<ENTER>:!ruby %<ENTER>
 
 "----------------------------------------------------------
@@ -191,30 +194,42 @@ autocmd FileType ruby,eruby :map <F2> :w<ENTER>:!ruby %<ENTER>
 " for session
 autocmd SessionLoadPost so $VIM/gvimrc
 
+"-----------------------------------------------------------
+" for cscope
+if has("cscope")
+  set cscopetag
+  set csto=0
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
+  if filereadable("cscope.out")
+    cs add cscope.out
+  endif
+  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+  " 'CTRL-spacebar' を使うと結果を新しいウインドウで表示する。
+  nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+
 "###########################################################
 " Plugin用設定
 "###########################################################
 "-----------------------------------------------------------
 " for neocomplcache.vim
 if filereadable($HOME . '/.vim/vimrc_neocomplcache.vim')
-	source $HOME/.vim/vimrc_neocomplcache.vim
+  source $HOME/.vim/vimrc_neocomplcache.vim
 endif
-
-"let g:neocomplcache_enable_at_startup = 1
-"function! InsertTabWrapper()
-"    if pumvisible()
-"        return "\<c-n>"
-"    endif
-"    let col = col('.') - 1
-"    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
-"        return "\<tab>"
-"    elseif exists('&omnifunc') && &omnifunc == ''
-"        return "\<c-n>"
-"    else
-"        return "\<c-x>\<c-o>"
-"    endif
-"endfunction
-"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 "-----------------------------------------------------------
 " for unite.vim
@@ -245,48 +260,21 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 au FileType unite nnoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
 au FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
-"-----------------------------------------------------------
-" for cscope (プラグインではないが)
-if has("cscope")
-	set cscopetag
-	set csto=0
-	set cscopequickfix=s-,c-,d-,i-,t-,e-
-	if filereadable("cscope.out")
-		cs add cscope.out
-	endif
-	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-	" 'CTRL-spacebar' を使うと結果を新しいウインドウで表示する。
-	nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-	nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-endif
+
 "-----------------------------------------------------------
 " for QFixHowm
 let GFixHowm_Key = 'g'
-	let howm_dir = $HOME.'/.howm'
+  let howm_dir = $HOME.'/.howm'
 if has('win32')
-	let howm_dir = $USERPROFILE.'/My Documents/My Dropbox/howm'
+  let howm_dir = $USERPROFILE.'/My Documents/My Dropbox/howm'
 elseif has('mac')
-	let howm_dir = $HOME.'/Dropbox/howm'
+  let howm_dir = $HOME.'/Dropbox/howm'
 endif
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
 let howm_fileencoding    = 'utf-8'
 let howm_fileformat      = 'unix'
 let QFixHowm_FileType    = 'markdown'
 let QFixHowm_Title       = '#'
-
 
 "-----------------------------------------------------------
 " for unite-colorscheme unite-font
@@ -303,10 +291,24 @@ let g:pymode_run = 0 " quickrunで実行するから不要
 "-----------------------------------------------------------
 " for quickrun
 let g:quickrun_config = {}
-" markdown html変換後にbrowserで出力
-let g:quickrun_config['markdown'] = {
-      \ 'outputter':'browser'
+let g:quickrun_config = {
+      \ '-' : {
+      \   'hook/close_unite_quickfix/enable_hook_loaded' : 1,
+      \   'hook/unite_quickfix/enable_failure' : 1,
+      \   'hook/close_quickfix/enable_exit' : 1,
+      \   'hook/close_buffer/enable_failuer' : 1,
+      \   'hook/close_buffer/enable_empty_data' : 1,
+      \   'outputter' : 'multi:buffer:quickfix',
+      \   'outputter/buffer/split' : ":botright 8sp",
+      \   'outputter/buffer/into' : 1,
+      \   'runner' : 'vimproc',
+      \   'runner/vimproc/updatetime' : 40,
+      \  },
+      \ 'markdown' : {
+      \   'outputter' : 'browser',
+      \  },
       \ }
+
 "-----------------------------------------------------------
 " for open-browser.vim
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
