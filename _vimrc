@@ -9,7 +9,7 @@ filetype plugin indent off
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-"let g:neobundle_default_git_protocol="https"
+let g:neobundle_default_git_protocol="https"
 call neobundle#rc(expand('~/.vim/bundle'))
 
 NeoBundle 'Shougo/vimproc'
@@ -314,6 +314,14 @@ let g:quickrun_config = {
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+
+"-----------------------------------------------------------
+" for quickhl.vim
+nmap <Space>m <Plug>(quickhl-toggle)
+xmap <Space>m <Plug>(quickhl-toggle)
+nmap <Space>M <Plug>(quickhl-reset)
+xmap <Space>M <Plug>(quickhl-reset)
+nmap <Space>j <Plug>(quickhl-match)
 
 "###########################################################
 " ローカル環境依存
