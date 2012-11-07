@@ -222,6 +222,11 @@ if has("cscope")
   nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
+"----------------------------------------------------------
+" for template
+autocmd BufNewFile *.py 0r $HOME/.vim/template/python.txt
+
+
 "###########################################################
 " Plugin用設定
 "###########################################################
