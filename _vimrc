@@ -24,7 +24,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/quickrun.vim'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-poslist'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -148,20 +148,11 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 " backup/swapを書き込むディレクトリ
 set backup
 set swapfile
-if has('win32')
-  if isdirectory($VIM.'/backup/vim_backup')
-    set backupdir=>$VIM/backup/vim_backup
-  endif
-  if isdirectory($VIM.'/backup/vim_swap')
-    set directory=>$VIM/backup/vim_swap
-  endif
-else
-  if isdirectory($HOME.'/backup/vim_backup')
-    set backupdir=>$HOME/backup/vim_backup
-  endif
-  if isdirectory($HOME.'/backup/vim_swap')
-    set directory=>$HOME/backup/vim_swap
-  endif
+if isdirectory($HOME.'/backup/vim_backup')
+  set backupdir=>$HOME/backup/vim_backup
+endif
+if isdirectory($HOME.'/backup/vim_swap')
+  set directory=>$HOME/backup/vim_swap
 endif
 
 "----------------------------------------------------------
@@ -270,11 +261,6 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('t
 " for QFixHowm
 let GFixHowm_Key = 'g'
   let howm_dir = $HOME.'/.howm'
-if has('win32')
-  let howm_dir = $USERPROFILE.'/My Documents/My Dropbox/howm'
-elseif has('mac')
-  let howm_dir = $HOME.'/Dropbox/howm'
-endif
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
 let howm_fileencoding    = 'utf-8'
 let howm_fileformat      = 'unix'
