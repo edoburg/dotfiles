@@ -38,7 +38,6 @@ NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'honza/snipmate-snippets'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
