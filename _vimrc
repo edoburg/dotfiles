@@ -296,6 +296,8 @@ let g:quickrun_config = {
       \  },
       \ 'markdown' : {
       \   'outputter' : 'browser',
+      \   'command'   : 'pandoc',
+      \   'cmdopt'    : '--toc -S -s -c pandoc.css',
       \  },
       \ }
 
