@@ -38,6 +38,9 @@ NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/shabadou.vim'
+NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'taichouchou2/vim-javascript'
+NeoBundle 'taichouchou2/html5.vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -331,6 +334,34 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+"----------------------------------------
+" zencoding
+
+" codaのデフォルトと一緒にする
+imap <C-E> <C-Y>,
+let g:user_zen_leader_key = '<C-Y>'
+" 言語別に対応させる
+let g:user_zen_settings = {
+\ 'lang' : 'ja',
+\ 'html' : {
+\ 'filters' : 'html',
+\ 'indentation' : ' '
+\ },
+\ 'css' : {
+\ 'filters' : 'fc',
+\ },
+\}
+ 
+
+"-----------------------------------------------------------
+" for open-browsere
+"
+" カーソル下のURLをブラウザで開く
+nmap <Leader>o <Plug>(openbrowser-open)
+vmap <Leader>o <Plug>(openbrowser-open)
+" ググる
+nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>"
 
 "###########################################################
 " ローカル環境依存
