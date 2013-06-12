@@ -41,6 +41,7 @@ NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'taichouchou2/html5.vim'
+NeoBundle 'leafgarland/typescript-vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -219,6 +220,7 @@ endif
 " for template
 autocmd BufNewFile *.py 0r $HOME/.vim/template/python.txt
 
+"----------------------------------------------------------
 
 "###########################################################
 " Plugin用設定
