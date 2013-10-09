@@ -10,8 +10,6 @@ hi PmenuSel   guibg=olivedrab
 hi PmenuSbar  guibg=Grey
 
 "------------------------------------------------
-set listchars=tab:__,trail:@,eol:$
-set list
 highlight JpSpace cterm=underline ctermfg=Blue guibg=#774444
 
 "------------------------------------------------
