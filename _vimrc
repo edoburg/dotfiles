@@ -18,7 +18,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'ZenCoding.vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'fuenor/qfixhowm'
@@ -41,6 +41,7 @@ NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'taichouchou2/html5.vim'
+NeoBundle 'gregsexton/gitv'
 NeoBundle 'leafgarland/typescript-vim'
 
 " Color Scheme
@@ -96,9 +97,9 @@ set number
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
-set nolist
+set list
 " どの文字でタブや改行を表示するかを設定
-"set listchars=tab:>-,extends:<,trail:-,eol:<
+set listchars=tab:__,trail:@,eol:$
 " 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
 " 常にステータス行を表示 (詳細は:he laststatus)
@@ -113,6 +114,7 @@ set title
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 set cursorline
+
 
 "----------------------------------------------------------
 " コマンドラインでのキーバインドを Emacs スタイルにする
