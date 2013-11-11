@@ -39,7 +39,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'taichouchou2/html5.vim'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'leafgarland/typescript-vim'
@@ -153,11 +152,11 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 " backup/swapを書き込むディレクトリ
 set backup
 set swapfile
-if isdirectory($HOME.'/backup/vim_backup')
-  set backupdir=>$HOME/backup/vim_backup
+if isdirectory($HOME.'.vim/backup/vim_backup')
+  set backupdir=>$HOME/.vim/backup/vim_backup
 endif
-if isdirectory($HOME.'/backup/vim_swap')
-  set directory=>$HOME/backup/vim_swap
+if isdirectory($HOME.'/.vim/backup/vim_swap')
+  set directory=>$HOME/.vim/backup/vim_swap
 endif
 
 "----------------------------------------------------------
