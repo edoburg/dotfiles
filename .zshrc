@@ -643,4 +643,7 @@ fi
 
 unset _zsh_user_config_dir
 
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
 # vim:set ft=zsh ts=4 sw=4 sts=0 foldmethod=marker:
