@@ -5,11 +5,11 @@ autodetach on
 # 起動時に著作権表示
 startup_message off
 # スクロールバックバッファの大きさ
-defscrollback 10000
+defscrollback 100000
 # 画面の一番下の行を反転させてハードステータス表示
 hardstatus alwayslastline "%{= gk}[%m/%d %02c:%s] %{gW} %-w%{= wk}%n %t%{-}%+w %=%{gk}$USER@$HOSTNAME[$LANG] (%l) "
-# エスケープは<C-z>
-escape ^Zz
+# エスケープは<C-t>
+escape ^t^t
 # 背景色消去
 defbce "on"
 # ターミナル
