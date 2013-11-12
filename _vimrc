@@ -152,7 +152,7 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 " backup/swapを書き込むディレクトリ
 set backup
 set swapfile
-if isdirectory($HOME.'.vim/backup/vim_backup')
+if isdirectory($HOME.'/.vim/backup/vim_backup')
   set backupdir=>$HOME/.vim/backup/vim_backup
 endif
 if isdirectory($HOME.'/.vim/backup/vim_swap')
