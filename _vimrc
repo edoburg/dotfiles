@@ -1,7 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 "
-"-----------------------------------------------------------
-" neobundle.vim
+" ====== neobundle.vim {{{
 "
 set nocompatible
 filetype plugin indent off
@@ -45,6 +44,10 @@ NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'jiangmiao/simple-javascript-indenter'
+NeoBundle 'vim-scripts/jQuery'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'elzr/vim-json'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -57,10 +60,9 @@ if neobundle#exists_not_installed_bundles()
 endif
 filetype plugin indent on
 
+" }}}
 
-"###########################################################
-" 非Plugin
-"###########################################################
+" {{{ ====== 非Plugin
 "-----------------------------------------------------------
 " 検索
 " 検索時に大文字小文字を無視 (noignorecase:無視しない)
@@ -116,7 +118,6 @@ set title
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 set cursorline
-
 
 "----------------------------------------------------------
 " コマンドラインでのキーバインドを Emacs スタイルにする
@@ -220,23 +221,16 @@ if has("cscope")
   nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
-"----------------------------------------------------------
-" for template
-autocmd BufNewFile *.py 0r $HOME/.vim/template/python.txt
+" }}}}
 
-"----------------------------------------------------------
-
-"###########################################################
-" Plugin用設定
-"###########################################################
-"-----------------------------------------------------------
-" for neocomplcache.vim
+" {{{ ===== Plugin
+" {{{ ===== neocomplcache.vim
 if filereadable($HOME . '/.vim/vimrc_neocomplcache.vim')
   source $HOME/.vim/vimrc_neocomplcache.vim
 endif
+" }}}
 
-"-----------------------------------------------------------
-" for unite.vim
+" {{{ ===== unite.vim
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
 " バッファ一覧
@@ -264,9 +258,9 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 au FileType unite nnoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
 au FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
+" }}}
 
-"-----------------------------------------------------------
-" for QFixHowm
+" {{{ ===== QFixHowm
 let GFixHowm_Key = 'g'
   let howm_dir = $HOME.'/.howm'
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
@@ -274,21 +268,21 @@ let howm_fileencoding    = 'utf-8'
 let howm_fileformat      = 'unix'
 let QFixHowm_FileType    = 'markdown'
 let QFixHowm_Title       = '#'
+" }}}
 
-"-----------------------------------------------------------
-" for unite-colorscheme unite-font
+" {{{ ===== unite-colorscheme unite-font
 let g:unite_enable_start_insert = 1
 let g:unite_enable_split_vertically = 1
 if globpath(&rtp, 'plugin/unite.vim') != ''
   nnoremap sc :<C-u>Unite colorscheme font<Cr>
 endif
+" }}}
 
-"-----------------------------------------------------------
-" for python-mode
+" {{{ ===== python-mode
 let g:pymode_run = 0 " quickrunで実行するから不要
+" }}}
 
-"-----------------------------------------------------------
-" for quickrun
+" {{{ ===== quickrun
 let g:quickrun_config = {}
 let g:quickrun_config = {
       \ '-' : {
@@ -309,24 +303,23 @@ let g:quickrun_config = {
       \   'cmdopt'    : '--toc -S -s -c pandoc.css',
       \  },
       \ }
+" }}}
 
-"-----------------------------------------------------------
-" for open-browser.vim
+" {{{ ===== open-browser.vim
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+" }}}
 
-"-----------------------------------------------------------
-" for quickhl.vim
+" {{{ ===== quickhl.vim
 nmap <Space>m <Plug>(quickhl-toggle)
 xmap <Space>m <Plug>(quickhl-toggle)
 nmap <Space>M <Plug>(quickhl-reset)
 xmap <Space>M <Plug>(quickhl-reset)
 nmap <Space>j <Plug>(quickhl-match)
+" }}}
 
-"-----------------------------------------------------------
-" for neosnippet.vim
-
+" {{{ ===== neosnippet.vim
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -335,57 +328,52 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" }}}
 
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-"----------------------------------------
-" zencoding
-
-" codaのデフォルトと一緒にする
+" {{{ ===== emmet.vim
+" codaのデフォルトと同じキーバインドにする
 imap <C-E> <C-Y>,
 let g:user_zen_leader_key = '<C-Y>'
 " 言語別に対応させる
 let g:user_zen_settings = {
-\ 'lang' : 'ja',
-\ 'html' : {
-\ 'filters' : 'html',
-\ 'indentation' : ' '
-\ },
-\ 'css' : {
-\ 'filters' : 'fc',
-\ },
+  \ 'lang' : 'ja',
+  \ 'html' : {
+  \ 'filters' : 'html',
+  \ 'indentation' : ' '
+  \ },
+  \ 'css' : {
+  \ 'filters' : 'fc',
+  \ },
 \}
+" }}}
 
-"----------------------------------------
-" gitgutter.vim
+" {{{ ===== gitgutter.vim
 nnoremap <silent> ,gg : <C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh : <C-u>GitGutterLineHighlightsToggle<CR>
+" }}}
 
-
-"----------------------------------------
-" lightline.vim
-
-set t_Co=256
+" {{{ ===== lightline.vim
+if !has('gui_running')
+  set t_Co=256
+endif
 
 let g:lightline = {
-\ 'colorscheme': 'solarized',
-\ 'mode_map': {'c': 'NORMAL'},
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-\ },
-\ 'component_function': {
-\   'modified': 'MyModified',
-\   'readonly': 'MyReadonly',
-\   'fugitive': 'MyFugitive',
-\   'filename': 'MyFilename',
-\   'fileformat': 'MyFileformat',
-\   'filetype': 'MyFiletype',
-\   'fileencoding': 'MyFileencoding',
-\   'mode': 'MyMode'
-\ }
+  \ 'colorscheme': 'solarized',
+  \ 'mode_map': {'c': 'NORMAL'},
+  \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter', 'filename' ] ]
+  \ },
+  \ 'component_function': {
+    \   'modified': 'MyModified',
+    \   'readonly': 'MyReadonly',
+    \   'fugitive': 'MyFugitive',
+    \   'gitgutter': 'MyGitGutter',
+    \   'filename': 'MyFilename',
+    \   'fileformat': 'MyFileformat',
+    \   'filetype': 'MyFiletype',
+    \   'fileencoding': 'MyFileencoding',
+    \   'mode': 'MyMode'
+  \ }
 \ }
 
 function! MyModified()
@@ -398,11 +386,11 @@ endfunction
 
 function! MyFilename()
   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-	\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-	\  &ft == 'unite' ? unite#get_status_string() :
-	\  &ft == 'vimshell' ? vimshell#get_status_string() :
-	\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-	\ ('' != MyModified() ? ' ' . MyModified() : '')
+    \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+    \  &ft == 'unite' ? unite#get_status_string() :
+    \  &ft == 'vimshell' ? vimshell#get_status_string() :
+    \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+    \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
@@ -431,13 +419,37 @@ function! MyMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+function! MyGitGutter()
+  if ! exists('*GitGutterGetHunkSummary')
+    \ || ! get(g:, 'gitgutter_enabled', 0)
+    \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+    \ g:gitgutter_sign_added . ' ',
+    \ g:gitgutter_sign_modified . ' ',
+    \ g:gitgutter_sign_removed . ' '
+    \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
 
-"###########################################################
-" ローカル環境依存
-"###########################################################
+" }}}
+"
+" }}}
+
+" {{{ ====== ローカル環境依存
 if 1 && filereadable($VIM . '/vimrc_local')
   source $VIM/vimrc_local
 endif
 if 1 && filereadable($HOME. '/vimrc_local')
   source $HOME/vimrc_local
 endif
+" }}}
+" vim: fdm=marker:
