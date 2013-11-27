@@ -48,6 +48,7 @@ NeoBundle 'jiangmiao/simple-javascript-indenter'
 NeoBundle 'vim-scripts/jQuery'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'osyo-manga/vim-over'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -348,6 +349,7 @@ let g:user_zen_settings = {
 " }}}
 
 " {{{ ===== gitgutter.vim
+let g:gitgutter_enabled=0
 nnoremap <silent> ,gg : <C-u>GitGutterToggle<CR>
 nnoremap <silent> ,gh : <C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
@@ -441,7 +443,14 @@ function! MyGitGutter()
 endfunction
 
 " }}}
-"
+
+" {{{ ===== over.vim
+" カーソル下の単語をハイライト付きで置換
+nnoremap sub :OverCommandLine<CR>%S/<C-r><C-w>//g<Left><Left>
+" コピーした文字列をハイライト付きで置換
+nnoremap subp y:OverCommandLine<CR>%S!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+" }}}
+
 " }}}
 
 " {{{ ====== ローカル環境依存
