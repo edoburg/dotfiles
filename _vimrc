@@ -226,9 +226,7 @@ endif
 
 " {{{ ===== Plugin
 " {{{ ===== neocomplcache.vim
-if filereadable($HOME . '/.vim/vimrc_neocomplcache.vim')
-  source $HOME/.vim/vimrc_neocomplcache.vim
-endif
+let g:neocomplcache_enable_at_startup = 1
 " }}}
 
 " {{{ ===== unite.vim
