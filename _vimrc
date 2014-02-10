@@ -81,7 +81,7 @@ endif
 set tabstop=4
 set sw=4
 " タブをスペースに展開しない (expandtab:展開する)
-set noexpandtab
+set expandtab
 " 自動的にインデントする (noautoindent:インデントしない)
 set autoindent
 " バックスペースでインデントや改行を削除できるようにする
