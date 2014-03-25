@@ -49,6 +49,7 @@ NeoBundle 'vim-scripts/jQuery'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'Blackrush/vim-gocode'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -220,6 +221,15 @@ if has("cscope")
   nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
   nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
   nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+
+"-----------------------------------------------------------
+" for Go
+if $GOROOT != ''
+  set runtimepath+=$GOROOT/misc/vim
+endif
+if $GOPATH != ''
+  exe "set runtimepath+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endif
 
 " }}}}
