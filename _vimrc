@@ -172,6 +172,7 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
+autocmd FileType * set textwidth=0
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -186,6 +187,7 @@ autocmd FileType python set fenc=utf-8
 autocmd FileType python set fdm=syntax
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=0
 autocmd FileType ruby,eruby :map <F2> :w<ENTER>:!ruby %<ENTER>
+autocmd FileType go set noexpandtab tabstop=4
 
 "----------------------------------------------------------
 " tags
@@ -231,6 +233,8 @@ endif
 if $GOPATH != ''
   exe "set runtimepath+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endif
+
+set completeopt=menu,preview
 
 " }}}}
 
