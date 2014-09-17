@@ -39,7 +39,7 @@ compinit
 
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
-export TERM=xterm-256color
+export TERM=xterm-color
 export PAGER=less
 # --SILENT : terminal bell is not rung
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --SILENT'
@@ -496,7 +496,7 @@ function zsh-without-rcfiles-in-screen() {
 # aliases #{{{1
 
 #list
-alias ls='ls -F --color=auto'
+alias ls='ls -FG'
 alias l='ls'
 alias la='ls -a'
 alias ll='ls -lh'
