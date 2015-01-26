@@ -1,4 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
+set encoding=utf-8
+scriptencoding utf-8
+
 "
 " ====== neobundle.vim {{{
 "
@@ -6,12 +9,24 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
+  if &compatible
+    set nocompatible
+  endif
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-let g:neobundle_default_git_protocol="https"
-call neobundle#rc(expand('~/.vim/bundle'))
 
-NeoBundle 'Shougo/vimproc'
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+let g:neobundle_default_git_protocol="https"
+
+NeoBundle 'Shougo/vimproc', {
+\ 'build' : {
+\   'windows' : 'tools\\update-dll-mingw',
+\   'mac' : 'make -f make_mak.mak',
+\   'linux' : 'make',
+\ },
+}
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
@@ -50,17 +65,17 @@ NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'Blackrush/vim-gocode'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'altercation/vim-colors-solarized'
 
-if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
-    \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-endif
+call neobundle#end()
+
 filetype plugin indent on
+NeoBundleCheck
 
 " }}}
 
@@ -80,8 +95,8 @@ endif
 " 編集に関する設定:
 " タブの画面上での幅
 set tabstop=4
-set sw=4
-" タブをスペースに展開しない (expandtab:展開する)
+set shiftwidth=4
+" タブをスペースに展開する
 set expandtab
 " 自動的にインデントする (noautoindent:インデントしない)
 set autoindent
@@ -118,29 +133,29 @@ set showcmd
 set title
 " ステータスラインに文字コードと改行文字を表示する
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-
+" カーソルのある行を強調表示
 set cursorline
 
 "----------------------------------------------------------
 " コマンドラインでのキーバインドを Emacs スタイルにする
 " Ctrl+Aで行頭へ移動
-:cnoremap <C-A>		<Home>
+cnoremap <C-A>		<Home>
 " Ctrl+Bで一文字戻る
-:cnoremap <C-B>		<Left>
+cnoremap <C-B>		<Left>
 " Ctrl+Dでカーソルの下の文字を削除
-:cnoremap <C-D>		<Del>
+cnoremap <C-D>		<Del>
 " Ctrl+Eで行末へ移動
-:cnoremap <C-E>		<End>
+cnoremap <C-E>		<End>
 " Ctrl+Fで一文字進む
-:cnoremap <C-F>		<Right>
+cnoremap <C-F>		<Right>
 " Ctrl+Nでコマンドライン履歴を一つ進む
-:cnoremap <C-N>		<Down>
+cnoremap <C-N>		<Down>
 " Ctrl+Pでコマンドライン履歴を一つ戻る
-:cnoremap <C-P>		<Up>
+cnoremap <C-P>		<Up>
 " Alt+Ctrl+Bで前の単語へ移動
-:cnoremap <Esc><C-B>	<S-Left>
+cnoremap <Esc><C-B>	<S-Left>
 " Alt+Ctrl+Fで次の単語へ移動
-:cnoremap <Esc><C-F>	<S-Right>
+cnoremap <Esc><C-F>	<S-Right>
 " expand path (カレントディレクトリの補完)
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 " expand file (not ext)
@@ -148,11 +163,11 @@ cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
 "----------------------------------------------------------
 " default file format
-:set fileformat=unix
+set fileformat=unix
 
 "----------------------------------------------------------
 " clipbordにヤンク
-:set clipboard=unnamed
+set clipboard=unnamed
 
 "----------------------------------------------------------
 " backup/swapを書き込むディレクトリ
@@ -169,33 +184,26 @@ endif
 " for omnicomplete
 set nocompatible
 syntax on
-filetype on
-filetype indent on
-filetype plugin on
-autocmd FileType * set textwidth=0
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType c set fdm=syntax
-autocmd FileType cpp set fdm=syntax
-autocmd FileType cpp set omnifunc=ccomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python set fenc=utf-8
-autocmd FileType python set fdm=syntax
-autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=0
-autocmd FileType ruby,eruby :map <F2> :w<ENTER>:!ruby %<ENTER>
-autocmd FileType go set noexpandtab tabstop=4
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+
+"----------------------------------------------------------
+" 自動折り返しを無効
+autocmd FileType * set textwidth=0
+
+"----------------------------------------------------------
+" FileTypeごとの設定
+autocmd FileType c setlocal foldmethod=syntax
+autocmd FileType cpp setlocal foldmethod=syntax
+autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType coffee setlocal foldmethod=indent
+autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 "----------------------------------------------------------
 " tags
-:set tags=tags;/
-
-"-----------------------------------------------------------
-" for session
-autocmd SessionLoadPost so $VIM/gvimrc
+set tags=tags;/
 
 "-----------------------------------------------------------
 " for cscope
@@ -241,6 +249,20 @@ set completeopt=menu,preview
 " {{{ ===== Plugin
 " {{{ ===== neocomplcache.vim
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+" 現在選択している候補を確定する
+inoremap <expr><C-y> neocomplcache#close_popup()
+" 現在選択している候補をキャンセルしてポップアップを閉じる
+inoremap <expr><C-e> neocomplcache#cancel_popup()
+" <C-h>や<BS>を押したときに確実にポップアップを削除する
+inoremap <expr><C-h> neocomplcache#smart_close_popup().”\<C-h>”
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
 " }}}
 
 " {{{ ===== unite.vim
@@ -260,17 +282,17 @@ nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
 " ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+autocmd FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 " ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+autocmd FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 " ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+autocmd FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+autocmd FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
-au FileType unite nnoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
-au FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
+autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
+autocmd FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
 " }}}
 
 " {{{ ===== QFixHowm
