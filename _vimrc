@@ -192,6 +192,10 @@ autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
 autocmd FileType * set textwidth=0
 
 "----------------------------------------------------------
+" ファイル拡張子とFileTypeの関連付ｋ
+autocmd BufRead,BufNewFile *.txt set filetype=markdown
+
+"----------------------------------------------------------
 " FileTypeごとの設定
 autocmd FileType c setlocal foldmethod=syntax
 autocmd FileType cpp setlocal foldmethod=syntax
@@ -301,6 +305,7 @@ let howm_fileencoding    = 'utf-8'
 let howm_fileformat      = 'unix'
 let QFixHowm_FileType    = 'markdown'
 let QFixHowm_Title       = '#'
+let QFixHowm_FoldingPattern = '^[#] '
 " }}}
 
 " {{{ ===== unite-colorscheme unite-font
