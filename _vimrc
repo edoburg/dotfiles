@@ -2,7 +2,6 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-"
 " ====== neobundle.vim {{{
 "
 set nocompatible
@@ -14,20 +13,19 @@ if has('vim_starting')
   endif
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-
+let g:neobundle_default_git_protocol="https"
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-let g:neobundle_default_git_protocol="https"
-
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
-\   'windows' : 'tools\\update-dll-mingw',
-\   'mac' : 'make -f make_mak.mak',
-\   'linux' : 'make',
-\ },
-}
-NeoBundle 'Shougo/neobundle.vim'
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
@@ -46,7 +44,7 @@ NeoBundle 't9md/vim-quickhl'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'klen/python-mode'
-NeoBundle 'mikewest/vim-markdown'
+NeoBundle 'rcmdnk/vim-markdown'
 NeoBundle 'vim-scripts/surround.vim'
 NeoBundle 'othree/eregex.vim'
 NeoBundle 'tyru/open-browser.vim'
