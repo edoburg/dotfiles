@@ -27,6 +27,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'h1mesuke/unite-outline'
@@ -51,7 +52,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'itchyny/lightline.vim'
