@@ -133,6 +133,9 @@ set title
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 " カーソルのある行を強調表示
 set cursorline
+" F1キー誤押下時にhelpを出さないようにする
+nmap <F1> :echo<CR>
+imap <F1> <C-o>:echo<CR>
 
 "----------------------------------------------------------
 " コマンドラインでのキーバインドを Emacs スタイルにする
