@@ -1,7 +1,6 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 set encoding=utf-8
 scriptencoding utf-8
-
 " ====== neobundle.vim {{{
 "
 set nocompatible
@@ -41,6 +40,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-poslist'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
@@ -65,10 +65,13 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'LeafCage/yankround.vim'
+NeoBundle 'osyo-manga/vim-anzu'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nanotech/jellybeans.vim'
 
 call neobundle#end()
 
@@ -489,6 +492,30 @@ endfunction
 nnoremap sub :OverCommandLine<CR>%S/<C-r><C-w>//g<Left><Left>
 " コピーした文字列をハイライト付きで置換
 nnoremap subp y:OverCommandLine<CR>%S!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+" }}}
+
+" {{{ ===== yankround.vim
+" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+" 履歴取得数
+let g:yankround_max_history = 50
+" 履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+" }}}
+
+" {{{ ===== anzu.vim
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" statusline
+set statusline=%{anzu#search_status()}
 " }}}
 
 " }}}
