@@ -1,8 +1,8 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 set encoding=utf-8
 scriptencoding utf-8
+
 " ====== neobundle.vim {{{
-"
 set nocompatible
 filetype plugin indent off
 
@@ -81,19 +81,10 @@ NeoBundleCheck
 " }}}
 
 " {{{ ====== 非Plugin
-"-----------------------------------------------------------
-" 検索
 " 検索時に大文字小文字を無視 (noignorecase:無視しない)
 set ignorecase
 " 大文字小文字の両方が含まれている場合は大文字小文字を区別
 set smartcase
-
-" windowsならgrepコマンドに外部grepを使用する
-if has('win32')
-  set grepprg=grep.exe\ -inrHE
-endif
-"-----------------------------------------------------------
-" 編集に関する設定:
 " タブの画面上での幅
 set tabstop=4
 set shiftwidth=4
@@ -111,8 +102,9 @@ set showmatch
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 set formatoptions+=mM
+" tags
+set tags=tags;/
 
-"-----------------------------------------------------------
 " GUI固有ではない画面表示の設定:
 " 行番号を非表示 (number:表示)
 set number
@@ -136,45 +128,60 @@ set title
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 " カーソルのある行を強調表示
 set cursorline
+" default file format
+set fileformat=unix
+" clipbordにヤンク
+set clipboard=unnamed
+
 " F1キー誤押下時にhelpを出さないようにする
 nmap <F1> :echo<CR>
 imap <F1> <C-o>:echo<CR>
 
-"----------------------------------------------------------
+" omnicomplete
+set nocompatible
+syntax on
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+
+" 自動折り返しを無効
+autocmd FileType * set textwidth=0
+" ファイル拡張子とFileTypeの関連付け
+autocmd BufRead,BufNewFile *.txt set filetype=markdown
+" ファイルタイプごとの設定
+autocmd FileType c setlocal foldmethod=syntax
+autocmd FileType cpp setlocal foldmethod=syntax
+
 " コマンドラインでのキーバインドを Emacs スタイルにする
-" Ctrl+Aで行頭へ移動
-cnoremap <C-A>		<Home>
-" Ctrl+Bで一文字戻る
-cnoremap <C-B>		<Left>
-" Ctrl+Dでカーソルの下の文字を削除
-cnoremap <C-D>		<Del>
-" Ctrl+Eで行末へ移動
-cnoremap <C-E>		<End>
-" Ctrl+Fで一文字進む
-cnoremap <C-F>		<Right>
-" Ctrl+Nでコマンドライン履歴を一つ進む
-cnoremap <C-N>		<Down>
-" Ctrl+Pでコマンドライン履歴を一つ戻る
-cnoremap <C-P>		<Up>
-" Alt+Ctrl+Bで前の単語へ移動
-cnoremap <Esc><C-B>	<S-Left>
-" Alt+Ctrl+Fで次の単語へ移動
-cnoremap <Esc><C-F>	<S-Right>
+" 行頭へ移動
+cnoremap <C-A>  <Home>
+" 一文字戻る
+cnoremap <C-B>  <Left>
+" カーソルの下の文字を削除
+cnoremap <C-D>  <Del>
+" 行末へ移動
+cnoremap <C-E>  <End>
+" 一文字進む
+cnoremap <C-F>  <Right>
+" コマンドライン履歴を一つ進む
+cnoremap <C-N>  <Down>
+" コマンドライン履歴を一つ戻る
+cnoremap <C-P>  <Up>
+" 前の単語へ移動
+cnoremap <Esc><C-B> <S-Left>
+" 次の単語へ移動
+cnoremap <Esc><C-F> <S-Right>
 " expand path (カレントディレクトリの補完)
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 " expand file (not ext)
 cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
-"----------------------------------------------------------
-" default file format
-set fileformat=unix
+" wrap時、行の上下移動を物理行ではなく表示行単位で行う
+nnoremap j gj
+nnoremap k gk
 
-"----------------------------------------------------------
-" clipbordにヤンク
-set clipboard=unnamed
-
-"----------------------------------------------------------
-" backup/swapを書き込むディレクトリ
+" backup/swapファイルを書き込むディレクトリの設定
 set backup
 set swapfile
 if isdirectory($HOME.'/.vim/backup/vim_backup')
@@ -184,36 +191,6 @@ if isdirectory($HOME.'/.vim/backup/vim_swap')
   set directory=>$HOME/.vim/backup/vim_swap
 endif
 
-"----------------------------------------------------------
-" for omnicomplete
-set nocompatible
-syntax on
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
-
-"----------------------------------------------------------
-" 自動折り返しを無効
-autocmd FileType * set textwidth=0
-
-"----------------------------------------------------------
-" ファイル拡張子とFileTypeの関連付ｋ
-autocmd BufRead,BufNewFile *.txt set filetype=markdown
-
-"----------------------------------------------------------
-" FileTypeごとの設定
-autocmd FileType c setlocal foldmethod=syntax
-autocmd FileType cpp setlocal foldmethod=syntax
-autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType coffee setlocal foldmethod=indent
-autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
-"----------------------------------------------------------
-" tags
-set tags=tags;/
-
-"-----------------------------------------------------------
 " for cscope
 if has("cscope")
   set cscopetag
@@ -230,31 +207,29 @@ if has("cscope")
   nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
   nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
   nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-  " 'CTRL-spacebar' を使うと結果を新しいウインドウで表示する。
-  nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>S :scs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>G :scs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>C :scs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>T :scs find t <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>E :scs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>F :scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-\>I :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-\>D :scs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
-"-----------------------------------------------------------
 " for Go
+autocmd FileType go setlocal noexpandtab shiftwidth=2 tabstop=2 softtabstop=2
 if $GOROOT != ''
   set runtimepath+=$GOROOT/misc/vim
 endif
 if $GOPATH != ''
   exe "set runtimepath+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endif
-
 set completeopt=menu,preview
 
 " }}}}
 
-" {{{ ===== Plugin
+" {{{ ====== Plugin
 " {{{ ===== neocomplcache.vim
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
