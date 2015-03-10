@@ -62,11 +62,13 @@ NeoBundle 'vim-scripts/jQuery'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'vim-jp/vim-go-extra'
+NeoBundle 'Blackrush/vim-gocode'
+NeoBundle 'dgryski/vim-godef'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -217,16 +219,13 @@ if has("cscope")
   nmap <C-\>D :scs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
-" for Go
-autocmd FileType go setlocal noexpandtab shiftwidth=2 tabstop=2 softtabstop=2
-if $GOROOT != ''
-  set runtimepath+=$GOROOT/misc/vim
-endif
-if $GOPATH != ''
-  exe "set runtimepath+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-endif
-set completeopt=menu,preview
-
+" for golang
+set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
+set path+=$GOPATH/src/**
+let g:gofmt_command = 'goimports'
+autocmd BufWritePre *.go Fmt
+autocmd BufNewFile,BufRead *.go set shiftwidth=4 tabstop=4 softtabstop=4 completeopt=menu,preview
+autocmd FileType go compiler go
 " }}}}
 
 " {{{ ====== Plugin
