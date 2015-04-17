@@ -29,46 +29,34 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-poslist'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 't9md/vim-quickhl'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
-NeoBundle 'klen/python-mode'
+NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundle 'osyo-manga/shabadou.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'rcmdnk/vim-markdown'
 NeoBundle 'vim-scripts/surround.vim'
 NeoBundle 'othree/eregex.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'osyo-manga/unite-quickfix'
-NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
-NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'jiangmiao/simple-javascript-indenter'
-NeoBundle 'vim-scripts/jQuery'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'elzr/vim-json'
 NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'dgryski/vim-godef'
+NeoBundle 'vim-scripts/gtags.vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -231,9 +219,13 @@ autocmd FileType go compiler go
 " {{{ ====== Plugin
 " {{{ ===== neocomplcache.vim
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_smart_case = 0
+let g:neocomplcache_enable_underbar_completion = 0
 let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_max_list = 10
+let g:neocomplcache_auto_completion_start_length = 4
+let g:neocomplcache_enable_ignore_case = 0
+let g:neocomplcache_enable_wildcard = 0
 " 現在選択している候補を確定する
 inoremap <expr><C-y> neocomplcache#close_popup()
 " 現在選択している候補をキャンセルしてポップアップを閉じる
