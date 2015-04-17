@@ -1,7 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 "------------------------------------------------
 set background=light
-colorscheme solarized
+colorscheme jellybeans
 "------------------------------------------------
 set printoptions=number:y
 "------------------------------------------------
