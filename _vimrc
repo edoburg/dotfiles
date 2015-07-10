@@ -57,6 +57,7 @@ NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'dgryski/vim-godef'
 NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'haya14busa/incsearch.vim'
 
 " Color Scheme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -88,6 +89,7 @@ set backspace=2
 set wrapscan
 " 括弧入力時に対応する括弧を表示 (noshowmatch:表示しない)
 set showmatch
+set matchtime=1
 " コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
@@ -96,23 +98,23 @@ set formatoptions+=mM
 set tags=tags;/
 
 " GUI固有ではない画面表示の設定:
-" 行番号を非表示 (number:表示)
+" show line number
 set number
-" ルーラーを表示 (noruler:非表示)
+" show ruler
 set ruler
-" タブや改行を表示 (list:表示)
+" display list characters (tab, return code, and more)
 set list
-" どの文字でタブや改行を表示するかを設定
+" list characters setting
 set listchars=tab:__,trail:@,eol:$
 " 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
-" 常にステータス行を表示 (詳細は:he laststatus)
+" show status line always
 set laststatus=2
-" コマンドラインの高さ (Windows用gvim使用時はgvimrcを編集すること)
+" number of lines to use for command line
 set cmdheight=2
-" コマンドをステータス行に表示
+" show command in status line
 set showcmd
-" タイトルを表示
+" show title
 set title
 " ステータスラインに文字コードと改行文字を表示する
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
@@ -166,6 +168,22 @@ cnoremap <Esc><C-F> <S-Right>
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 " expand file (not ext)
 cmap <c-z> <c-r>=expand('%:p:r')<cr>
+
+let mapleader = "\<Space>"
+nnoremap <Leader>t :tabe 
+nnoremap <Leader>w :w<CR>
+
+noremap <Space>j <C-f>
+noremap <Space>k <C-b>
+
+
+nnoremap Y y$
+set pumheight=10
+
+" increment/decrement
+nnoremap + <C-a>
+nnoremap - <C-x>
+
 
 " wrap時、行の上下移動を物理行ではなく表示行単位で行う
 nnoremap j gj
@@ -472,6 +490,19 @@ let g:yankround_max_history = 50
 nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 " }}}
 
+" {{{ ===== incsearch.vim
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map n <Plug>(incsearch-nohl-n)
+map N <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+" }}}
+
 " {{{ ===== anzu.vim
 " mapping
 nmap n <Plug>(anzu-n-with-echo)
@@ -483,9 +514,8 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " statusline
 set statusline=%{anzu#search_status()}
 " }}}
-
 " }}}
-
+"
 " {{{ ====== ローカル環境依存
 if 1 && filereadable($VIM . '/vimrc_local')
   source $VIM/vimrc_local
