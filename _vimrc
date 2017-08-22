@@ -2,7 +2,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-" ====== neobundle.vim {{{
+" ====== dein.vim {{{
 set nocompatible
 filetype plugin indent off
 
@@ -10,73 +10,65 @@ if has('vim_starting')
   if &compatible
     set nocompatible
   endif
-  set runtimepath+=~/.vim/bundle/neobundle.vim
+  set runtimepath+=~/.vim/dein
 endif
-let g:neobundle_default_git_protocol="https"
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+let g:dein_default_git_protocol="https"
 
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
-NeoBundle 'osyo-manga/unite-quickfix'
-NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'rcmdnk/vim-markdown'
-NeoBundle 'vim-scripts/surround.vim'
-NeoBundle 'othree/eregex.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'LeafCage/yankround.vim'
-NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'vim-jp/vim-go-extra'
-NeoBundle 'Blackrush/vim-gocode'
-NeoBundle 'dgryski/vim-godef'
-NeoBundle 'vim-scripts/gtags.vim'
-NeoBundle 'haya14busa/incsearch.vim'
+call dein#begin( expand('~/.vim/bundle/') )
+call dein#add( 'Shougo/neocomplete' )
+call dein#add( 'Shougo/vimproc.vim', { 'build' : 'make' } )
+call dein#add( 'Shougo/unite.vim' )
+call dein#add( 'Shougo/neomru.vim' )
+call dein#add( 'Shougo/vimfiler' )
+call dein#add( 'Shougo/vimshell' )
+call dein#add( 'Shougo/neosnippet' )
+call dein#add( 'Shougo/neosnippet-snippets' )
+call dein#add( 'Shougo/unite-outline' )
+call dein#add( 'ujihisa/unite-colorscheme' )
+call dein#add( 'ujihisa/unite-font' )
+call dein#add( 'osyo-manga/unite-quickfix' )
+call dein#add( 'osyo-manga/shabadou.vim' )
+call dein#add( 'thinca/vim-quickrun' )
+call dein#add( 'mattn/emmet-vim' )
+call dein#add( 'kien/ctrlp.vim' )
+call dein#add( 'fuenor/qfixhowm' )
+call dein#add( 'rcmdnk/vim-markdown' )
+call dein#add( 'vim-scripts/surround.vim' )
+call dein#add( 'othree/eregex.vim' )
+call dein#add( 'tpope/vim-fugitive' )
+call dein#add( 'gregsexton/gitv' )
+call dein#add( 'airblade/vim-gitgutter' )
+call dein#add( 'itchyny/lightline.vim' )
+call dein#add( 'scrooloose/syntastic' )
+call dein#add( 'osyo-manga/vim-over' )
+call dein#add( 'nathanaelkane/vim-indent-guides' )
+call dein#add( 'LeafCage/yankround.vim' )
+call dein#add( 'osyo-manga/vim-anzu' )
+call dein#add( 'vim-jp/vim-go-extra' )
+call dein#add( 'Blackrush/vim-gocode' )
+call dein#add( 'dgryski/vim-godef' )
+call dein#add( 'vim-scripts/gtags.vim' )
+call dein#add( 'haya14busa/incsearch.vim' )
+call dein#add( 'vim-scripts/vim-auto-save' )
+call dein#add( 'rking/ag.vim' )
 
-" Color Scheme
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
+" Color Scheme )
+call dein#add( 'chriskempson/vim-tomorrow-theme' )
+call dein#add( 'altercation/vim-colors-solarized' )
+call dein#add( 'nanotech/jellybeans.vim' )
 
-call neobundle#end()
+call dein#end()
 
 filetype plugin indent on
-NeoBundleCheck
+if dein#check_install()
+  call dein#install()
+endif
 
 " }}}
 
 " {{{ ====== 非Plugin
-" 検索時に大文字小文字を無視 (noignorecase:無視しない)
 set ignorecase
-" 大文字小文字の両方が含まれている場合は大文字小文字を区別
 set smartcase
-" タブの画面上での幅
 set tabstop=4
 set shiftwidth=4
 " タブをスペースに展開する
@@ -90,7 +82,7 @@ set wrapscan
 " 括弧入力時に対応する括弧を表示 (noshowmatch:表示しない)
 set showmatch
 set matchtime=1
-" コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
+
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 set formatoptions+=mM
@@ -125,78 +117,52 @@ set fileformat=unix
 " clipbordにヤンク
 set clipboard=unnamed
 
+syntax on
+
 " F1キー誤押下時にhelpを出さないようにする
 nmap <F1> :echo<CR>
 imap <F1> <C-o>:echo<CR>
-
-" omnicomplete
-set nocompatible
-syntax on
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
 
 " 自動折り返しを無効
 autocmd FileType * set textwidth=0
 " ファイル拡張子とFileTypeの関連付け
 autocmd BufRead,BufNewFile *.txt set filetype=markdown
-" ファイルタイプごとの設定
-autocmd FileType c setlocal foldmethod=syntax
-autocmd FileType cpp setlocal foldmethod=syntax
 
-" コマンドラインでのキーバインドを Emacs スタイルにする
-" 行頭へ移動
-cnoremap <C-A>  <Home>
-" 一文字戻る
-cnoremap <C-B>  <Left>
-" カーソルの下の文字を削除
-cnoremap <C-D>  <Del>
-" 行末へ移動
-cnoremap <C-E>  <End>
-" 一文字進む
-cnoremap <C-F>  <Right>
-" コマンドライン履歴を一つ進む
-cnoremap <C-N>  <Down>
-" コマンドライン履歴を一つ戻る
-cnoremap <C-P>  <Up>
-" 前の単語へ移動
-cnoremap <Esc><C-B> <S-Left>
-" 次の単語へ移動
-cnoremap <Esc><C-F> <S-Right>
 " expand path (カレントディレクトリの補完)
 cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 " expand file (not ext)
 cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
 let mapleader = "\<Space>"
-nnoremap <Leader>t :tabe 
-nnoremap <Leader>w :w<CR>
 
 noremap <Space>j <C-f>
 noremap <Space>k <C-b>
 
-
 nnoremap Y y$
+
+" maximum number of items to show in the popup menu
 set pumheight=10
 
 " increment/decrement
 nnoremap + <C-a>
 nnoremap - <C-x>
 
-
 " wrap時、行の上下移動を物理行ではなく表示行単位で行う
 nnoremap j gj
 nnoremap k gk
 
-" backup/swapファイルを書き込むディレクトリの設定
+" backup/swap/undoファイルを書き込むディレクトリの設定
 set backup
 set swapfile
-if isdirectory($HOME.'/.vim/backup/vim_backup')
-  set backupdir=>$HOME/.vim/backup/vim_backup
+set undofile
+if isdirectory($HOME.'/.vim/backup/backup')
+  set backupdir=$HOME/.vim/backup/backup
 endif
-if isdirectory($HOME.'/.vim/backup/vim_swap')
-  set directory=>$HOME/.vim/backup/vim_swap
+if isdirectory($HOME.'/.vim/backup/swap')
+  set directory=$HOME/.vim/backup/swap
+endif
+if isdirectory($HOME.'/.vim/backup/undo')
+  set undodir=$HOME/.vim/backup/undo
 endif
 
 " for cscope
@@ -236,55 +202,100 @@ autocmd FileType go compiler go
 
 " {{{ ====== Plugin
 " {{{ ===== neocomplcache.vim
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 0
-let g:neocomplcache_enable_underbar_completion = 0
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_max_list = 10
-let g:neocomplcache_auto_completion_start_length = 4
-let g:neocomplcache_enable_ignore_case = 0
-let g:neocomplcache_enable_wildcard = 0
-" 現在選択している候補を確定する
-inoremap <expr><C-y> neocomplcache#close_popup()
-" 現在選択している候補をキャンセルしてポップアップを閉じる
-inoremap <expr><C-e> neocomplcache#cancel_popup()
-" <C-h>や<BS>を押したときに確実にポップアップを削除する
-inoremap <expr><C-h> neocomplcache#smart_close_popup().”\<C-h>”
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 " {{{ ===== unite.vim
+nnoremap    [unite]   <Nop>
+nmap    <Space>u [unite]
+
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]u :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
-" ウィンドウを分割して開く
-autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-autocmd FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-autocmd FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-autocmd FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-autocmd FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-
-autocmd FileType unite nnoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
-autocmd FileType unite inoremap <silent> <buffer> <expr> <C-Space> unite#do_action('tabopen')
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 " }}}
 
 " {{{ ===== QFixHowm
@@ -514,6 +525,21 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " statusline
 set statusline=%{anzu#search_status()}
 " }}}
+
+" {{{ ===== vim-auto-save
+" enable auto save
+let g:auto_save = 1
+" do not save while in insert mode
+let g:auto_save_in_insert_mode = 0
+" do not display auto-save notification
+let g:auto_save_silent = 1
+" }}}
+
+" {{{ ==== vim_markdown
+" disable folding
+let g:vim_markdown_folding_disabled = 1
+" }}}
+
 " }}}
 "
 " {{{ ====== ローカル環境依存

@@ -1,7 +1,4 @@
 "2.0a2 (created: 2008/12/23 17:35:33)
-map <F3> :o atode<CR>
-map <F4> :o hateb<CR>
-map <F9> :o pasob<CR>
 map J <C-d>
 map K <C-u>
 map <Esc><Esc> :nohlsearch<CR>
@@ -11,16 +8,9 @@ map <C-h> :tabprevious<CR>
 set complete=sl
 set gui=noaddons,nobookmarks,nomenu,navigation,tabs
 set runtimepath=~/vimperator
-set editor=/Applications/MacVim.app/Contents/MacOS/MacVim
 set visualbell
 
 "feedSomeKeys_3
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
-
 fmap -modes=i -events=keydown,keypress <C-p> <Up>
 fmap -modes=i -events=keydown,keypress <C-n> <Down>
-lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a d # [ ] ? gi gs gt gd ga gc
-lazy fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / d j,n k,p n,j p,k o u e x s r a # [ ] ? gi gs gt gd ga gc
-lazy fmaps -u='www\.google\.co\.jp/reader' -events=vkeypress j k n p m s v A r S N P X O gh ga gs gt gu u / ? J K
-lazy fmaps -u='http://code.google.com/p/vimperator-labs/issues/list' o j k
-lazy fmaps -u='http://code.google.com/p/vimperator-labs/issues/detail' u
