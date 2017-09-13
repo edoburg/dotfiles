@@ -3,67 +3,38 @@ set encoding=utf-8
 scriptencoding utf-8
 
 " ====== dein.vim {{{
-set nocompatible
 filetype plugin indent off
 
-if has('vim_starting')
-  if &compatible
+if &compatible
     set nocompatible
-  endif
-  set runtimepath+=~/.vim/dein
 endif
+
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
 let g:dein_default_git_protocol="https"
 
-call dein#begin( expand('~/.vim/bundle/') )
-call dein#add( 'Shougo/neocomplete' )
-call dein#add( 'Shougo/vimproc.vim', { 'build' : 'make' } )
-call dein#add( 'Shougo/unite.vim' )
-call dein#add( 'Shougo/neomru.vim' )
-call dein#add( 'Shougo/vimfiler' )
-call dein#add( 'Shougo/vimshell' )
-call dein#add( 'Shougo/neosnippet' )
-call dein#add( 'Shougo/neosnippet-snippets' )
-call dein#add( 'Shougo/unite-outline' )
-call dein#add( 'ujihisa/unite-colorscheme' )
-call dein#add( 'ujihisa/unite-font' )
-call dein#add( 'osyo-manga/unite-quickfix' )
-call dein#add( 'osyo-manga/shabadou.vim' )
-call dein#add( 'thinca/vim-quickrun' )
-call dein#add( 'mattn/emmet-vim' )
-call dein#add( 'kien/ctrlp.vim' )
-call dein#add( 'fuenor/qfixhowm' )
-call dein#add( 'rcmdnk/vim-markdown' )
-call dein#add( 'vim-scripts/surround.vim' )
-call dein#add( 'othree/eregex.vim' )
-call dein#add( 'tpope/vim-fugitive' )
-call dein#add( 'gregsexton/gitv' )
-call dein#add( 'airblade/vim-gitgutter' )
-call dein#add( 'itchyny/lightline.vim' )
-call dein#add( 'scrooloose/syntastic' )
-call dein#add( 'osyo-manga/vim-over' )
-call dein#add( 'nathanaelkane/vim-indent-guides' )
-call dein#add( 'LeafCage/yankround.vim' )
-call dein#add( 'osyo-manga/vim-anzu' )
-call dein#add( 'vim-jp/vim-go-extra' )
-call dein#add( 'Blackrush/vim-gocode' )
-call dein#add( 'dgryski/vim-godef' )
-call dein#add( 'vim-scripts/gtags.vim' )
-call dein#add( 'haya14busa/incsearch.vim' )
-call dein#add( 'vim-scripts/vim-auto-save' )
-call dein#add( 'rking/ag.vim' )
+let s:dein_dir = expand('~/.vim/bundle/')
 
-" Color Scheme )
-call dein#add( 'chriskempson/vim-tomorrow-theme' )
-call dein#add( 'altercation/vim-colors-solarized' )
-call dein#add( 'nanotech/jellybeans.vim' )
+if dein#load_state( s:dein_dir )
+  call dein#begin( s:dein_dir )
+  " プラグインリストを収めたTOMLファイル
+  let g:toml_dir = expand('~/.vim/toml')
+  let s:toml = g:toml_dir . '/dein.toml'
+  let s:lazy_toml = g:toml_dir . '/dein_lazy.toml'
 
-call dein#end()
+  " TOMLを読み込みキャッシュしておく
+  call dein#load_toml(s:toml, {'lazy':0})
+  call dein#load_toml(s:lazy_toml, {'lazy':1})
 
-filetype plugin indent on
+  call dein#end()
+  call dein#save_state()
+endif
+
 if dein#check_install()
   call dein#install()
 endif
 
+filetype plugin indent on
 " }}}
 
 " {{{ ====== 非Plugin
@@ -82,14 +53,14 @@ set wrapscan
 " 括弧入力時に対応する括弧を表示 (noshowmatch:表示しない)
 set showmatch
 set matchtime=1
-
+" 補完候補を表示する
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 set formatoptions+=mM
 " tags
 set tags=tags;/
 
-" GUI固有ではない画面表示の設定:
+" GUI固有ではない画面表示の設定
 " show line number
 set number
 " show ruler
@@ -125,6 +96,7 @@ imap <F1> <C-o>:echo<CR>
 
 " 自動折り返しを無効
 autocmd FileType * set textwidth=0
+
 " ファイル拡張子とFileTypeの関連付け
 autocmd BufRead,BufNewFile *.txt set filetype=markdown
 
@@ -134,9 +106,8 @@ cmap <c-x> <c-r>=expand('%:p:h')<cr>/
 cmap <c-z> <c-r>=expand('%:p:r')<cr>
 
 let mapleader = "\<Space>"
-
-noremap <Space>j <C-f>
-noremap <Space>k <C-b>
+noremap <Leader>j <C-f>
+noremap <Leader>k <C-b>
 
 nnoremap Y y$
 
@@ -155,127 +126,19 @@ nnoremap k gk
 set backup
 set swapfile
 set undofile
-if isdirectory($HOME.'/.vim/backup/backup')
-  set backupdir=$HOME/.vim/backup/backup
+if isdirectory($HOME.'/.vim/backup')
+  set backupdir=$HOME/.vim/backup
 endif
-if isdirectory($HOME.'/.vim/backup/swap')
-  set directory=$HOME/.vim/backup/swap
+if isdirectory($HOME.'/.vim/backup')
+  set directory=$HOME/.vim/backup
 endif
-if isdirectory($HOME.'/.vim/backup/undo')
-  set undodir=$HOME/.vim/backup/undo
-endif
-
-" for cscope
-if has("cscope")
-  set cscopetag
-  set csto=0
-  set cscopequickfix=s-,c-,d-,i-,t-,e-
-  if filereadable("cscope.out")
-    cs add cscope.out
-  endif
-  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>S :scs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>G :scs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>C :scs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>T :scs find t <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>E :scs find e <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>F :scs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-\>I :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-\>D :scs find d <C-R>=expand("<cword>")<CR><CR>
+if isdirectory($HOME.'/.vim/backup')
+  set undodir=$HOME/.vim/backup
 endif
 
-" for golang
-set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
-set path+=$GOPATH/src/**
-let g:gofmt_command = 'goimports'
-autocmd BufWritePre *.go Fmt
-autocmd BufNewFile,BufRead *.go set shiftwidth=4 tabstop=4 softtabstop=4 completeopt=menu,preview
-autocmd FileType go compiler go
 " }}}}
 
 " {{{ ====== Plugin
-" {{{ ===== neocomplcache.vim
-"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" }}}
 
 " {{{ ===== unite.vim
 nnoremap    [unite]   <Nop>
@@ -296,29 +159,6 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--nogroup --nocolor'
   let g:unite_source_grep_recursive_opt = ''
 endif
-" }}}
-
-" {{{ ===== QFixHowm
-let GFixHowm_Key = 'g'
-  let howm_dir = $HOME.'/.howm'
-let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
-let howm_fileencoding    = 'utf-8'
-let howm_fileformat      = 'unix'
-let QFixHowm_FileType    = 'markdown'
-let QFixHowm_Title       = '#'
-let QFixHowm_FoldingPattern = '^[#] '
-" }}}
-
-" {{{ ===== unite-colorscheme unite-font
-let g:unite_enable_start_insert = 1
-let g:unite_enable_split_vertically = 1
-if globpath(&rtp, 'plugin/unite.vim') != ''
-  nnoremap sc :<C-u>Unite colorscheme font<Cr>
-endif
-" }}}
-
-" {{{ ===== python-mode
-let g:pymode_run = 0 " quickrunで実行するから不要
 " }}}
 
 " {{{ ===== quickrun
@@ -344,19 +184,6 @@ let g:quickrun_config = {
       \ }
 " }}}
 
-" {{{ ===== open-browser.vim
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-" }}}
-
-" {{{ ===== quickhl.vim
-nmap <Space>m <Plug>(quickhl-toggle)
-xmap <Space>m <Plug>(quickhl-toggle)
-nmap <Space>M <Plug>(quickhl-reset)
-xmap <Space>M <Plug>(quickhl-reset)
-nmap <Space>j <Plug>(quickhl-match)
-" }}}
 
 " {{{ ===== neosnippet.vim
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
@@ -367,29 +194,6 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" }}}
-
-" {{{ ===== emmet.vim
-" codaのデフォルトと同じキーバインドにする
-imap <C-E> <C-Y>,
-let g:user_zen_leader_key = '<C-Y>'
-" 言語別に対応させる
-let g:user_zen_settings = {
-  \ 'lang' : 'ja',
-  \ 'html' : {
-  \ 'filters' : 'html',
-  \ 'indentation' : ' '
-  \ },
-  \ 'css' : {
-  \ 'filters' : 'fc',
-  \ },
-\}
-" }}}
-
-" {{{ ===== gitgutter.vim
-let g:gitgutter_enabled=0
-nnoremap <silent> ,gg : <C-u>GitGutterToggle<CR>
-nnoremap <silent> ,gh : <C-u>GitGutterLineHighlightsToggle<CR>
 " }}}
 
 " {{{ ===== lightline.vim
@@ -489,6 +293,18 @@ nnoremap sub :OverCommandLine<CR>%S/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%S!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
 
+" {{{ ===== anzu.vim
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" statusline
+set statusline=%{anzu#search_status()}
+" }}}
+
 " {{{ ===== yankround.vim
 " キーマップ
 nmap p <Plug>(yankround-p)
@@ -497,8 +313,6 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 " 履歴取得数
 let g:yankround_max_history = 50
-" 履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 " }}}
 
 " {{{ ===== incsearch.vim
@@ -514,18 +328,6 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 " }}}
 
-" {{{ ===== anzu.vim
-" mapping
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
-" clear status
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-" statusline
-set statusline=%{anzu#search_status()}
-" }}}
-
 " {{{ ===== vim-auto-save
 " enable auto save
 let g:auto_save = 1
@@ -533,11 +335,6 @@ let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 " do not display auto-save notification
 let g:auto_save_silent = 1
-" }}}
-
-" {{{ ==== vim_markdown
-" disable folding
-let g:vim_markdown_folding_disabled = 1
 " }}}
 
 " }}}

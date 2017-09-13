@@ -1,7 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 "------------------------------------------------
-set background=light
-colorscheme jellybeans
+set background=dark
+colorscheme molokai
 "------------------------------------------------
 set printoptions=number:y
 "------------------------------------------------
@@ -51,12 +51,12 @@ endfunction
 "------------------------------------------------
 " マウスミドルボタンクリックによるペースト無効化
 map <MiddleMouse> <Nop>
-imap <MiddleMouse> <Nop>
 map <2-MiddleMouse> <Nop>
-imap <2-MiddleMouse> <Nop>
 map <3-MiddleMouse> <Nop>
-imap <3-MiddleMouse> <Nop>
 map <4-MiddleMouse> <Nop>
+imap <MiddleMouse> <Nop>
+imap <2-MiddleMouse> <Nop>
+imap <3-MiddleMouse> <Nop>
 imap <4-MiddleMouse> <Nop>
 
 
@@ -70,4 +70,4 @@ if 1 && filereadable($HOME. '/gvimrc_local')
   source $HOME/gvimrc_local
 endif
 
-set guifont=Ricty\ Diminished\ Discord:h13:cSHIFTJIS
+set guifont=Myrica_M:h13:cSHIFTJIS

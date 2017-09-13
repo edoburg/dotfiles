@@ -1,0 +1,58 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'godlygeek/tabular'
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+depends = 'tabular'
+
+[[plugins]]
+repo = 'othree/eregex.vim'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-over'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repo = 'vim-scripts/gtags.vim'
+
+[[plugins]]
+repo = 'haya14busa/incsearch.vim'
+
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+
+[[plugins]]
+repo = 'LeafCage/yankround.vim'
+#depends = 'ctrlp.vim'
+
+# colorscheme
+
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+hook_add = '''
+  set background=dark
+'''
+
+[[plugins]]
+repo = 'tomasr/molokai'
+hook_add = '''
+  set background=dark
+'''
+
