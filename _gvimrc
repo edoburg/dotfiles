@@ -70,4 +70,3 @@ if 1 && filereadable($HOME. '/gvimrc_local')
   source $HOME/gvimrc_local
 endif
 
-set guifont=Myrica_M:h13:cSHIFTJIS
