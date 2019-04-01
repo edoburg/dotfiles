@@ -315,19 +315,6 @@ nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 " }}}
 
-" {{{ ===== incsearch.vim
-let g:incsearch#auto_nohlsearch = 1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n <Plug>(incsearch-nohl-n)
-map N <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-" }}}
-
 " {{{ ===== vim-auto-save
 " enable auto save
 let g:auto_save = 1
